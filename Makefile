@@ -28,4 +28,7 @@ autoloader-update:
 	docker exec $(CONTAINER_NAME) bash -c "cd /var/www; ./composer.phar update"
 	chmod +x vendor/propel/propel/bin/propel
 
+error.log:
+	docker exec $(CONTAINER_NAME) bash -c "tail -f /var/log/apache2/error.log"
+
 build: autoloader-update build-conf build-model build-sql insert-sql autoloader-dump

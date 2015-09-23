@@ -19,15 +19,11 @@ $app->before(function (Request $request) {
         $request->request->replace(is_array($data) ? $data : array());
     }
 });
+$app->mount('/publishers', new Controller\Publishers());
+$app->mount('/api/publishers', new Controller\PublishersREST());
 
 $app->mount('/authors', new Controller\Authors());
+$app->mount('/api/authors', new Controller\AuthorsREST());
 
-$app->get('/add/author/{firstName}/{lastName}', function ($firstName, $lastName) use ($app) {
-  $author = new Author();
-  $author->setFirstName($app->escape($firstName));
-  $author->setLastName($app->escape($lastName));
-  $author->save();
-  return 'saved';
-});
 
 $app->run();

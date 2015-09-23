@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Publishers</title>
+    </head>
+    <body>
+      <ul id="navigation">
+      {% for item in publishers %}
+          <li>{{ item.Name }} (<a href="#" onclick="onDeletePublisher({{item.Id}});">delete</a>)</li>
+      {% endfor %}
+      </ul>
+
+      <form id="addForm" action="/api/publishers/" title="" method="post">
+
+              <div>
+                  <label class="title">Name</label>
+                  <input type="text" id="name" name="name" >
+              </div>
+              <div>
+                  <input type="submit" id="submitButton"  name="submitButton" value="Add">
+              </div>
+       </form>
+
+      <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="/assets/main.js"></script>
+    </body>
+</html>

@@ -1,40 +1,62 @@
-window.delete = function(id, cb) {
-  console.log('delete');
-  $.ajax({
-    url: '/authors/' + id,
-    type: 'DELETE',
-    success: cb,
-    error: function() {
-      console.warn(arguments);
-    }
-  });
-};
-
-window.deleteAndReload =  function(id) {
-  window.delete(id, function() {
+window.onDeleteAuthor =  function(id) {
+  window.api.authors.delete(id).done(function() {
     document.location.reload(true);
   });
 };
 
-$("#addForm").submit(function(event) {
+window.onDeletePublisher =  function(id) {
+  window.api.publishers.delete(id).done(function() {
+    document.location.reload(true);
+  });
+};
 
-   /* stop form from submitting normally */
-   event.preventDefault();
+(function(w) {
+  function _delete(url) {
+    return $.ajax({
+      url: url,
+      type: 'DELETE',
+      error: function() {
+        console.warn(arguments);
+      }
+    });
+  }
+  var authors =  {
+    delete: function(id) {
+      return _delete('/api/authors/'+id);
+    }
+  };
+  var publishers =  {
+    delete: function(id) {
+      return _delete('/api/publishers/'+id);
+    }
+  };
 
-   /* get some values from elements on the page: */
-   var $form = $( this );
-   var url = $form.attr( 'action' );
+  return w.api = {
+    authors: authors,
+    publishers: publishers
+  };
+})(window)
 
-   /* Send the data using post */
-   var posting = $.post( url, {
-     firstName: $('#firstName').val(),
-     lastName: $('#lastName').val(),
-     contentType:"application/json; charset=utf-8",
-     dataType:"json",
-   } );
+function getFields(selector) {
+  var form = $(selector);
+  var result = {};
+  form.serializeArray().forEach(function(i) {
+    result[i.name] = i.value;
+  });
+  return result;
+}
+function connectForm(selector) {
+  $(selector).submit(function(event) {
+    event.preventDefault();
+    var $form = $(this);
+    var url = $form.attr('action');
+    var formData = getFields(selector);
+    var posting = $.post( url, formData);
 
-   /* Alerts the results */
-   posting.done(function( data ) {
-     document.location.reload(true);
-   });
- });
+    posting.done(function( data ) {
+      document.location.reload(true);
+    });
+  });
+}
+
+connectForm('#addForm');

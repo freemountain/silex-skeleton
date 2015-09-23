@@ -6,11 +6,11 @@
     <body>
       <ul id="navigation">
       {% for item in authors %}
-          <li>{{ item.LastName }}, {{ item.FirstName }} (<a href="#" onclick="deleteAndReload({{item.Id}});">delete</a>)</li>
+          <li>{{ item.LastName }}, {{ item.FirstName }} (<a href="#" onclick="onDeleteAuthor({{item.Id}});">delete</a>)</li>
       {% endfor %}
       </ul>
 
-      <form id="addForm" action="/authors/" title="" method="post">
+      <form id="addForm" action="/api/authors/" title="" method="post">
               <div>
                   <label class="title">First Name</label>
                   <input type="text" id="firstName" name="firstName" >
