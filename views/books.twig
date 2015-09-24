@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Books</title>
+    </head>
+    <body>
+        <ul id="navigation">
+        {% for item in books %}
+            <li>{{ item.Title }} - ({{ item.ISBN }}) (<a href="#" onclick="onDeleteAuthor({{item.Id}});">delete</a>)</li>
+        {% endfor %}
+        </ul>
+
+        <form id="addForm" action="/api/books/" title="" method="post">
+            <div>
+                <label class="title">Title</label>
+                <input type="text" id="title" name="title" >
+            </div>
+            <div>
+                <label class="title">ISBN</label>
+                <input type="text" id="isbn" name="isbn" >
+            </div>
+            <div>
+                <label class="author">Author</label>
+                <input type="text" id="author" name="authorId" >
+            </div>
+            <div>
+                <label class="author">Publisher</label>
+                <input type="text" id="publisher" name="publisherId" >
+            </div>
+            <div>
+                <input type="submit" id="submitButton"  name="submitButton" value="Add">
+            </div>
+        </form>
+
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="/assets/main.js"></script>
+    </body>
+</html>

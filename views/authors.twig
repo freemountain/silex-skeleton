@@ -4,27 +4,27 @@
         <title>Authors</title>
     </head>
     <body>
-      <ul id="navigation">
-      {% for item in authors %}
-          <li>{{ item.LastName }}, {{ item.FirstName }} (<a href="#" onclick="onDeleteAuthor({{item.Id}});">delete</a>)</li>
-      {% endfor %}
-      </ul>
+        <ul id="navigation">
+        {% for item in authors %}
+            <li>{{ item.LastName }}, {{ item.FirstName }} (<a href="#" onclick="onDeleteAuthor({{item.Id}});">delete</a>)</li>
+        {% endfor %}
+        </ul>
 
-      <form id="addForm" action="/api/authors/" title="" method="post">
-              <div>
-                  <label class="title">First Name</label>
-                  <input type="text" id="firstName" name="firstName" >
-              </div>
-              <div>
-                  <label class="title">Last Name</label>
-                  <input type="text" id="lastName" name="lastName" >
-              </div>
-              <div>
-                  <input type="submit" id="submitButton"  name="submitButton" value="Add">
-              </div>
-       </form>
+        <form id="addForm" action="/api/authors/" title="" method="post">
+            <div>
+                <label class="title">First Name</label>
+                <input type="text" id="firstName" name="firstName" >
+            </div>
+            <div>
+                <label class="title">Last Name</label>
+                <input type="text" id="lastName" name="lastName" >
+            </div>
+            <div>
+                <input type="submit" id="submitButton"  name="submitButton" value="Add">
+            </div>
+        </form>
 
-      <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script src="/assets/main.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="/assets/main.js"></script>
     </body>
 </html>

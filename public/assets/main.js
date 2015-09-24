@@ -55,6 +55,9 @@ function connectForm(selector) {
 
     posting.done(function( data ) {
       document.location.reload(true);
+    })
+    .fail(function() {
+      console.warn(arguments);
     });
   });
 }
