@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace App\Controller;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
@@ -10,7 +10,7 @@ use Model\Author;
 class Authors implements ControllerProviderInterface {
   public function connect(Application $app) {
     $factory = $app['controllers_factory'];
-    $factory->get('/', 'Controller\Authors::getAll');
+    $factory->get('/', 'App\Controller\Authors::getAll');
 
     return $factory;
   }

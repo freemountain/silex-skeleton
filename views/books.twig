@@ -1,38 +1,64 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Books</title>
-    </head>
-    <body>
-        <ul id="navigation">
+<html lang="en">
+{% include 'htmlHead.twig' with {'title' : 'Books' } %}
+<body>
+  {% include 'modal.twig' %}
+  {% include 'navbar.twig' with {'active' : 'books' } %}
+  <div class="container">
+    <table class="table header-fixed sticky-header">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>ISBN</th>
+          <th>Author</th>
+          <th>Publisher</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for item in books %}
-            <li>{{ item.Title }} - ({{ item.ISBN }}) (<a href="#" onclick="onDeleteAuthor({{item.Id}});">delete</a>)</li>
+        <tr>
+          <th scope="row">{{ item.Id }}</th>
+          <td>{{ item.Title }}</td>
+          <td>{{ item.ISBN }}</td>
+          <td>{{ item.Author.LastName }}</td>
+          <td>{{ item.Publisher.Name }}</td>
+          <td><a href="#" onclick="onDelete('book', {{item.Id}});">delete</a></td>
+        </tr>
         {% endfor %}
-        </ul>
-
-        <form id="addForm" action="/api/books/" title="" method="post">
-            <div>
-                <label class="title">Title</label>
-                <input type="text" id="title" name="title" >
-            </div>
-            <div>
-                <label class="title">ISBN</label>
-                <input type="text" id="isbn" name="isbn" >
-            </div>
-            <div>
-                <label class="author">Author</label>
-                <input type="text" id="author" name="authorId" >
-            </div>
-            <div>
-                <label class="author">Publisher</label>
-                <input type="text" id="publisher" name="publisherId" >
-            </div>
-            <div>
-                <input type="submit" id="submitButton"  name="submitButton" value="Add">
-            </div>
-        </form>
-
-        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="/assets/main.js"></script>
-    </body>
+      </tbody>
+    </table>
+  </div>
+  <nav class="navbar navbar-fixed-bottom navbar-light bg-faded">
+    <form id="addForm" action="/api/books/" title="" method="post" class="form-inline navbar-form">
+      <div class="form-group">
+        <label class="title">Title</label>
+        <input type="text" id="title" name="title">
+      </div>
+      <div class="form-group">
+        <label class="title">ISBN</label>
+        <input type="text" id="isbn" name="isbn">
+      </div>
+      <div class="form-group">
+        <label class="author">Author</label>
+        <select class="c-select" name="authorId">
+            {% for item in authors %}
+                <option value="{{ item.Id }}">{{ item.LastName }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="author">Publisher</label>
+        <select class="c-select" name="publisherId">
+            {% for item in publisher %}
+                <option value="{{ item.Id }}">{{ item.Name }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="submit" id="submitButton" name="submitButton" value="Add" class="btn btn-success">
+      </div>
+    </form>
+  </nav>
+</body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace App\Controller;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
@@ -11,9 +11,9 @@ use Model\Book;
 class BooksREST implements ControllerProviderInterface {
     public function connect(Application $app) {
         $factory = $app['controllers_factory'];
-        $factory->get('/', 'Controller\BooksREST::getAll');
-        $factory->post('/', 'Controller\BooksREST::add');
-        $factory->delete('/{id}', 'Controller\BooksREST::delete');
+        $factory->get('/', 'App\Controller\BooksREST::getAll');
+        $factory->post('/', 'App\Controller\BooksREST::add');
+        $factory->delete('/{id}', 'App\Controller\BooksREST::delete');
 
         return $factory;
     }

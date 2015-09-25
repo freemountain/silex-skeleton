@@ -1,41 +1,17 @@
-window.onDeleteAuthor =  function(id) {
-  window.api.authors.delete(id).done(function() {
-    document.location.reload(true);
-  });
-};
-
-window.onDeletePublisher =  function(id) {
-  window.api.publishers.delete(id).done(function() {
-    document.location.reload(true);
-  });
-};
-
-(function(w) {
-  function _delete(url) {
-    return $.ajax({
+function apiCall(url, method, data) {
+  method = method === undefined ? 'GET' : method;
+  return new Promise(function(resolve, reject) {
+    $.ajax({
       url: url,
-      type: 'DELETE',
-      error: function() {
-        console.warn(arguments);
-      }
+      method: method,
+      data: data
+    })
+    .done(resolve)
+    .fail(function( jqXHR, textStatus ) {
+      reject(jqXHR.responseJSON === undefined ? jqXHR.responseText : jqXHR.responseJSON);
     });
-  }
-  var authors =  {
-    delete: function(id) {
-      return _delete('/api/authors/'+id);
-    }
-  };
-  var publishers =  {
-    delete: function(id) {
-      return _delete('/api/publishers/'+id);
-    }
-  };
-
-  return w.api = {
-    authors: authors,
-    publishers: publishers
-  };
-})(window)
+  });
+}
 
 function getFields(selector) {
   var form = $(selector);
@@ -45,6 +21,7 @@ function getFields(selector) {
   });
   return result;
 }
+
 function connectForm(selector) {
   $(selector).submit(function(event) {
     event.preventDefault();
@@ -62,4 +39,22 @@ function connectForm(selector) {
   });
 }
 
-connectForm('#addForm');
+window.showModal = function(title, content) {
+  $('#myModal .modal-title').html(title);
+  $('#myModal .modal-body').html(content);
+  $('#myModal').modal();
+};
+
+window.onDelete = function(type, id) {
+  apiCall('/api/' + type + 's/'+id, 'DELETE')
+  .then(function() {
+    document.location.reload(true);
+  }, function(e) {
+    showModal('Error', e.description);
+  });
+};
+
+$(function() {
+  $('table.sticky-header').stickyTableHeaders({fixedOffset: $('#navigation')});
+  connectForm('#addForm');
+});

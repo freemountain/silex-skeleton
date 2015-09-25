@@ -1,0 +1,9 @@
+body {
+  padding-top: 50px;
+}
+
+table.sticky-header thead {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+}

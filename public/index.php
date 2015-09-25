@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 $app = new Silex\Application();
+
 $app['debug'] = true;
 $app['asset_path'] = '/assets';
 
@@ -21,14 +22,13 @@ $app->before(function (Request $request) {
     }
 });
 
-$app->mount('/publishers', new Controller\Publishers());
-$app->mount('/api/publishers', new Controller\PublishersREST());
+$app->mount('/publishers', new App\Controller\Publishers());
+$app->mount('/api/publishers', new App\Controller\PublishersREST());
 
-$app->mount('/authors', new Controller\Authors());
-$app->mount('/api/authors', new Controller\AuthorsREST());
+$app->mount('/authors', new App\Controller\Authors());
+$app->mount('/api/authors', new App\Controller\AuthorsREST());
 
-$app->mount('/books', new Controller\Books());
-$app->mount('/api/books', new Controller\BooksREST());
-
+$app->mount('/books', new App\Controller\Books());
+$app->mount('/api/books', new App\Controller\BooksREST());
 
 $app->run();
