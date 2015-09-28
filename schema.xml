@@ -22,4 +22,17 @@
    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
    <column name="name" type="varchar" size="128" required="true" />
   </table>
+  <table name="photo" phpName="Photo">
+   <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+   <column name="creator_id" type="varchar" size="128" required="true" />
+   <column name="date" type="varchar" size="128" required="true" />
+   <foreign-key foreignTable="user">
+     <reference local="creator_id" foreign="id"/>
+   </foreign-key>
+  </table>
+  <table name="user" phpName="User">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="name" type="varchar" size="128" required="true" />
+    <column name="email" type="varchar" size="128" required="true" />
+  </table>
 </database>
