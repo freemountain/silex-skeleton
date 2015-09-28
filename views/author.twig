@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'htmlHead.twig' with {'title' : 'Authors' } %}
+<body>
+  {% include 'modal.twig' %}
+  {% include 'navbar.twig' with {'active' : 'authors' } %}
+  <div class="container">
+      {{ author }}
+      
+  </div>
+</body>
+</html>
